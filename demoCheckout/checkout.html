@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Checkout</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vuetify@2.5.7/dist/vuetify.min.css">
+    <link rel="dns-prefetch" href="https://fast.appcues.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  </head>
+  <body >
+    <div id="app" >
+      <v-app id="inspire" v-on:scroll.passive="myFun()">
+      <v-stepper v-model="checkoutStep" vertical>
+      <v-stepper-step :complete="checkoutStep > 1" step="1" @click="checkoutStep = 1" :editable="checkoutStep > 1">
+         Login/Register
+        <!-- <small>Summarize if needed</small> -->
+      </v-stepper-step>
+      <v-stepper-content step="1">
+        <v-form ref="loginForm" v-model="loginValid" lazy-validation>
+          <v-text-field cols="12" sm="6"  dense md="4" outlined v-model="loginForm.email" :counter="10" :rules="emailRules" label="Email"></v-text-field>
+          <v-text-field outlined v-model="loginForm.password" :rules="passwordRules" label="password" required ></v-text-field>
+          <!-- <v-checkbox v-model="checkbox" :rules="[v => !!v || 'You must agree to continue!']" label="I agree to continue"></v-checkbox> -->
+          <v-btn color="primary" @click="login()" :disabled="validate('login')"> LOGIN </v-btn>
+          <v-btn color="primary" @click="checkoutStep = 2" v-on:click="myFun()"> CONTINUE AS GUEST </v-btn>
+        </v-form>
+      </v-stepper-content>  
+      
+      <v-stepper-step :complete="checkoutStep > 2" step="2" :editable="checkoutStep > 2" v-on:scroll="myFun()"> Billing Info </v-stepper-step>
+      <v-stepper-content step="2">
+        <v-form ref="billingForm" v-model="billingValid" lazy-validation>
+          <v-text-field v-model="billingForm.firstName" :counter="10" :rules="[v => !!v || 'please enter first name']" label="First Name" outlined></v-text-field>
+          <v-text-field v-model="billingForm.lastName" :rules="emailRules" label="Last Name" outlined ></v-text-field>
+          
+        </v-form>
+        <v-btn
+        color="primary"
+        @click="checkoutStep = 3"
+        >
+        NEXT STEP
+        </v-btn>
+      
+      </v-stepper-content>
+      
+      <v-stepper-step
+      :complete="checkoutStep > 3"
+      step="3"
+      >
+      Traveller Info
+      </v-stepper-step>
+      
+      <v-stepper-content step="3">
+      <v-card
+      color="grey lighten-1"
+      class="mb-12"
+      height="200px"
+      ></v-card>
+      <v-btn
+      color="primary"
+      @click="checkoutStep = 4"
+      >
+      NEXT STEP
+      </v-btn>
+      <v-btn text>
+      Cancel
+      </v-btn>
+      </v-stepper-content>
+      
+      <v-stepper-step step="4">
+      GIFT CARD
+      </v-stepper-step>
+      <v-stepper-content step="4">
+      <v-card
+      color="grey lighten-1"
+      class="mb-12"
+      height="200px"
+      ></v-card>
+      <v-btn
+      color="primary"
+      @click="checkoutStep = 5"
+      >
+      NEXT STEP
+      </v-btn>
+      <v-btn text>
+      Cancel
+      </v-btn>
+      </v-stepper-content>
+      <v-stepper-step step="5">
+      Payment Info
+      </v-stepper-step>
+      <v-stepper-content step="5">
+      <v-card
+      color="grey lighten-1"
+      class="mb-12"
+      height="200px"
+      ></v-card>
+      <v-btn
+      color="primary"
+      @click="checkoutStep = 1"
+      >
+      NEXT STEP
+      </v-btn>
+      <v-btn text>
+      Cancel
+      </v-btn>
+      </v-stepper-content>
+      </v-stepper>
+
+      <!-- <p v-html="testFun()"> hello </p> -->
+      <p> {{names | getNamesByComma}} </p>
+      </v-app>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/v-mask/dist/v-mask.min.js"></script>
+    <script>
+    // As a plugin
+    Vue.use(VueMask.VueMaskPlugin);
+    // Or as a directive
+    Vue.directive('mask', VueMask.VueMaskDirective);
+    </script>
+    <script type="text/javascript" src="app.js"></script>
+  </body>
+</html>
